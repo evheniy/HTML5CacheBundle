@@ -21,7 +21,8 @@ Default value is empty
 You can set protocols for local CDN:
 
     html5_cache:
-        http:  false
+        cdn: cdn.site.com
+        http:  true
         https: false
 
 Default value: true (for both). 
