@@ -4,6 +4,10 @@ HTML5CacheBundle
 This bundle provides HTML5 Application Cache for Symfony2
 
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/build-status/master)
+
+[![Build Status](https://travis-ci.org/evheniy/HTML5CacheBundle.svg)](https://travis-ci.org/evheniy/HTML5CacheBundle)
+
 Documentation
 -------------
 
