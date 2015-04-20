@@ -52,10 +52,10 @@ class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
         $this->container->loadFromExtension($this->extension->getAlias());
         $this->container->compile();
         $this->assertTrue($this->container->hasParameter('html5_cache'));
-        $html5_cache = $this->container->getParameter('html5_cache');
-        $this->assertEmpty($html5_cache['cdn']);
-        $this->assertTrue($html5_cache['http']);
-        $this->assertTrue($html5_cache['https']);
+        $html5Cache = $this->container->getParameter('html5_cache');
+        $this->assertEmpty($html5Cache['cdn']);
+        $this->assertTrue($html5Cache['http']);
+        $this->assertTrue($html5Cache['https']);
     }
 
     /**
@@ -66,13 +66,13 @@ class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
         $this->loadConfiguration($this->container, 'test');
         $this->container->compile();
         $this->assertTrue($this->container->hasParameter('html5_cache'));
-        $html5_cache = $this->container->getParameter('html5_cache');
-        $this->assertNotEmpty($html5_cache['cdn']);
-        $this->assertEquals($html5_cache['cdn'], 'cdn.site.com');
-        $this->assertEmpty($html5_cache['https']);
-        $this->assertFalse($html5_cache['https']);
-        $this->assertEmpty($html5_cache['http']);
-        $this->assertFalse($html5_cache['http']);
+        $html5Cache = $this->container->getParameter('html5_cache');
+        $this->assertNotEmpty($html5Cache['cdn']);
+        $this->assertEquals($html5Cache['cdn'], 'cdn.site.com');
+        $this->assertEmpty($html5Cache['https']);
+        $this->assertFalse($html5Cache['https']);
+        $this->assertEmpty($html5Cache['http']);
+        $this->assertFalse($html5Cache['http']);
     }
 
     /**
