@@ -1,0 +1,4 @@
+html5_cache:
+    cdn: //cdn.site.com
+    http: false
+    https: false

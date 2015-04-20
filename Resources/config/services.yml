@@ -1,0 +1,6 @@
+services:
+    evheniy.twig.html5_cache_extension:
+        class: Evheniy\HTML5CacheBundle\Twig\HTML5CacheExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
