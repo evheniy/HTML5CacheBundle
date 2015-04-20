@@ -17,6 +17,7 @@ You can use local CDN (domain):
         cdn: cdn.site.com
 
 Default value is empty
+
 You can set protocols for local CDN:
 
     html5_cache:
