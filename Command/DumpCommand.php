@@ -108,8 +108,8 @@ EOF
      */
     protected function dump()
     {
-        $fs = new Filesystem();
-        $fs->dumpFile(
+        $filesystem = new Filesystem();
+        $filesystem->dumpFile(
             $this->webDirectory . '/cache.manifest',
             $this->render($this->html5Cache)
         );
