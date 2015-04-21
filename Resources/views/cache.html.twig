@@ -1,0 +1,21 @@
+CACHE MANIFEST
+#{{ "now"|date("Ymdhis") }}
+#chrome://appcache-internals/ to clear
+
+CACHE:
+{% for path in paths %}
+    {% if cdn %}
+        {% if http %}http://{{- cdn -}}/{{ path }}{% endif %}
+        {% if https %}https://{{- cdn -}}/{{ path }}{% endif %}
+    {% else %}
+        /{{ path }}
+    {% endif %}
+{% endfor %}
+{% for path in custom_paths %}
+    {{ path }}
+{% endfor %}
+
+NETWORK:
+*
+
+FALLBACK:

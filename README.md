@@ -8,25 +8,6 @@ This bundle provides HTML5 Application Cache for Symfony2
 
 [![Build Status](https://travis-ci.org/evheniy/HTML5CacheBundle.svg)](https://travis-ci.org/evheniy/HTML5CacheBundle)
 
-Documentation
--------------
-
-You can use local CDN (domain):
-
-    html5_cache:
-        cdn: cdn.site.com
-
-Default value is empty
-
-You can set protocols for local CDN:
-
-    html5_cache:
-        cdn: cdn.site.com
-        http:  true
-        https: false
-
-Default value: true (for both). 
-
 Installation
 ------------
 
@@ -58,10 +39,65 @@ config.yml:
         cdn: cdn.site.com
         http: true
         https: false
+        custom_urls:
+            - https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js
+            - https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css
+            - https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css
+            - https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js
+            - ...
 
-The last step
+Documentation
+-------------
 
-    app/console cache_manifest:dump
+You can use local CDN (domain):
+
+    html5_cache:
+        cdn: cdn.site.com
+
+Default value is empty
+
+You can set protocols for local CDN:
+
+    html5_cache:
+        cdn: cdn.site.com
+        http:  true
+        https: false
+
+Default value: true (for both)
+
+You can set custom urls:
+
+    html5_cache:
+        custom_urls:
+            - https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js
+            - https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css
+            - https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css
+            - https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js
+            - ...
+
+Default value is empty
+
+
+JqueryBundle
+------------
+
+If You are using [JqueryBundle][5], this url:
+
+    https://ajax.googleapis.com/ajax/libs/jquery/{JqueryBundle.config.version}/jquery.min.js 
+
+will be inserted automatically
+
+
+TwitterBootstrapBundle
+----------------------
+
+If You are using [TwitterBootstrapBundle][6], those urls:
+
+    - https://maxcdn.bootstrapcdn.com/bootstrap/{TwitterBootstrapBundle.config.version}/css/bootstrap.min.css
+    - https://maxcdn.bootstrapcdn.com/bootstrap/{TwitterBootstrapBundle.config.version}/css/bootstrap-theme.min.css
+    - https://maxcdn.bootstrapcdn.com/bootstrap/{TwitterBootstrapBundle.config.version}/js/bootstrap.min.js
+
+will be inserted automatically
 
 License
 -------
@@ -70,7 +106,7 @@ This bundle is under the [MIT][3] license.
 
 [Документация на русском языке][1]
 
-[Demo][3] - Open page, then turn off network and update page
+[Demo][2] - Open page, then turn off network and update page
 
 [HTML5 Application Cache][4]
 
@@ -78,3 +114,5 @@ This bundle is under the [MIT][3] license.
 [2]:  http://makedev.org/
 [3]:  https://github.com/evheniy/JqueryBundle/blob/master/Resources/meta/LICENSE
 [4]:  http://www.w3schools.com/html/html5_app_cache.asp
+[5]:  https://github.com/evheniy/JqueryBundle
+[6]:  https://github.com/evheniy/TwitterBootstrapBundle

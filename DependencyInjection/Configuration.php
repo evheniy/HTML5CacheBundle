@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('cdn')->defaultValue('')->end()
                 ->booleanNode('http')->defaultTrue()->end()
                 ->booleanNode('https')->defaultTrue()->end()
+                ->arrayNode('custom_paths')->prototype('scalar')->end()->end()
             ->end();
 
         return $treeBuilder;
