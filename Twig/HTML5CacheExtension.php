@@ -33,7 +33,7 @@ class HTML5CacheExtension extends \Twig_Extension
     }
 
     /**
-     * @return bool
+     * @return string
      */
     public function getCacheManifest()
     {
