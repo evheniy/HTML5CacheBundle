@@ -72,6 +72,8 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $input;
+        $output;
         $this->webDirectory = $this->getContainer()->get('kernel')->getRootdir().'/../web';
         $this->setHtml5Cache($this->getPaths());
         $this->dump();
