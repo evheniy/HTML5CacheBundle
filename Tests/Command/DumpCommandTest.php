@@ -11,6 +11,11 @@ use \Symfony\Component\Filesystem\Filesystem;
 use \Symfony\Component\Finder\Finder;
 use Symfony\Component\Templating\TemplateNameParser;
 
+/**
+ * Class DumpCommandTest
+ *
+ * @package Evheniy\HTML5CacheBundle\Tests\Command
+ */
 class DumpCommandTest extends KernelTestCase
 {
     /**
@@ -238,6 +243,9 @@ class DumpCommandTest extends KernelTestCase
         $filesystem->remove($webPath);
     }
 
+    /**
+     * @throws \Twig_Error_Loader
+     */
     public function testDump()
     {
         $webPath = dirname(__FILE__) . '/web';
@@ -302,6 +310,9 @@ class DumpCommandTest extends KernelTestCase
         $file->remove($webPath);
     }
 
+    /**
+     * @throws \Twig_Error_Loader
+     */
     public function testExecute()
     {
         $webPath = dirname(__FILE__) . '/web';

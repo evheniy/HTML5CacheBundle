@@ -125,7 +125,7 @@ EOF
     {
         $this->filesystem->dumpFile(
             $this->webDirectory . '/cache.manifest',
-            $this->render($this->html5Cache)
+            $this->render()
         );
     }
 
