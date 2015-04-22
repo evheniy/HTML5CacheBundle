@@ -1,15 +1,16 @@
 <?php
 namespace Evheniy\HTML5CacheBundle\Tests\Command;
 
-use \Symfony\Component\Console\Input\ArrayInput;
-use \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use \Symfony\Component\Console\Output\StreamOutput;
-use \Evheniy\HTML5CacheBundle\Command\DumpCommand;
-use \Symfony\Component\DependencyInjection\Container;
-use \Symfony\Bridge\Twig\TwigEngine;
-use \Symfony\Component\Filesystem\Filesystem;
-use \Symfony\Component\Finder\Finder;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Console\Output\StreamOutput;
+use Evheniy\HTML5CacheBundle\Command\DumpCommand;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Bridge\Twig\TwigEngine;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Templating\TemplateNameParser;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
  * Class DumpCommandTest
@@ -319,11 +320,10 @@ class DumpCommandTest extends KernelTestCase
             )
         );
         $this->container->setParameter('html5_cache', $initData);
+        $kernel = $this->getMock('Symfony\Component\HttpKernel\KernelInterface');
+        $kernel->method('getRootdir')->willReturn($webPath);
+        $this->container->set('kernel', $kernel);
         $this->command->setContainer($this->container);
-
-        $webDirectory = $this->reflectionClass->getProperty('webDirectory');
-        $webDirectory->setAccessible(true);
-        $webDirectory->setValue($this->command, $webPath);
 
         $method = $this->reflectionClass->getMethod('execute');
         $method->setAccessible(true);

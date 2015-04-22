@@ -46,7 +46,7 @@ class DumpCommand extends ContainerAwareCommand
      */
     protected $webDirectory;
     /**
-     * @var mixed
+     * @var array
      */
     protected $html5Cache;
     /**
@@ -83,9 +83,7 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $input;
-        if (empty($this->webDirectory)) {
-            $this->webDirectory = $this->getContainer()->get('kernel')->getRootdir() . '/../web';
-        }
+        $this->webDirectory = $this->getContainer()->get('kernel')->getRootdir() . '/../web';
         $this->filesystem = new Filesystem();
         $this->finder = new Finder();
         $this->setHtml5Cache($this->getPaths());
@@ -98,9 +96,15 @@ EOF
      */
     protected function setHtml5Cache(array $paths = array())
     {
-        $this->html5Cache = $this->getContainer()->getParameter('html5_cache');
-        $this->html5Cache['paths'] = $paths;
-        $this->html5Cache['custom_paths'] = array_merge($this->html5Cache['custom_paths'], $this->getJqueryUrls(), $this->getTwitterBootstrapUrls());
+        $this->html5Cache = array_merge(
+            $this->getContainer()->getParameter('html5_cache'),
+            array('paths' => $paths)
+        );
+        $this->html5Cache['custom_paths'] = array_merge(
+            $this->html5Cache['custom_paths'],
+            $this->getJqueryUrls(),
+            $this->getTwitterBootstrapUrls()
+        );
     }
 
     /**
