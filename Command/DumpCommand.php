@@ -84,7 +84,7 @@ EOF
     {
         $input;
         if (empty($this->webDirectory)) {
-            $this->webDirectory = $this->getContainer()->get('kernel')->getRootdir().'/../web';
+            $this->webDirectory = $this->getContainer()->get('kernel')->getRootdir() . '/../web';
         }
         $this->filesystem = new Filesystem();
         $this->finder = new Finder();

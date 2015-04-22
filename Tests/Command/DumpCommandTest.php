@@ -288,24 +288,7 @@ class DumpCommandTest extends KernelTestCase
         $method->setAccessible(true);
         $method->invoke($this->command);
 
-        $this->assertTrue($file->exists(array($webPath . '/cache.manifest')));
-        $data = file_get_contents($webPath . '/cache.manifest');
-
-        $this->assertRegExp('/CACHE MANIFEST/', $data);
-        $this->assertRegExp('/CACHE:/', $data);
-        $this->assertRegExp('/NETWORK:/', $data);
-        $this->assertRegExp('/http:\/\/cdn.site.com\/test.png/', $data);
-        $this->assertRegExp('/https:\/\/cdn.site.com\/test.png/', $data);
-        $this->assertRegExp('/\/test.png/', $data);
-
-        $this->assertRegExp('/http:\/\/cdn.site.com\/test.gif/', $data);
-        $this->assertRegExp('/https:\/\/cdn.site.com\/test.gif/', $data);
-        $this->assertRegExp('/\/test.gif/', $data);
-
-        $this->assertRegExp('/https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/1.11.2\/jquery.min.js/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap.min.css/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap-theme.min.css/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/js\/bootstrap.min.js/', $data);
+        $this->parseFile($file, $webPath);
 
         $file->remove($webPath);
     }
@@ -349,8 +332,18 @@ class DumpCommandTest extends KernelTestCase
         rewind($output->getStream());
         $this->assertRegExp('/Done/', stream_get_contents($output->getStream()));
 
+        $this->parseFile($filesystem, $webPath);
 
-        $this->assertTrue($filesystem->exists(array($webPath . '/cache.manifest')));
+        $filesystem->remove($webPath);
+    }
+
+    /**
+     * @param Filesystem $file
+     * @param string     $webPath
+     */
+    private function parseFile(Filesystem $file, $webPath)
+    {
+        $this->assertTrue($file->exists(array($webPath . '/cache.manifest')));
         $data = file_get_contents($webPath . '/cache.manifest');
 
         $this->assertRegExp('/CACHE MANIFEST/', $data);
@@ -368,9 +361,5 @@ class DumpCommandTest extends KernelTestCase
         $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap.min.css/', $data);
         $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap-theme.min.css/', $data);
         $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/js\/bootstrap.min.js/', $data);
-
-        $filesystem->remove($webPath);
     }
-
-
 }
