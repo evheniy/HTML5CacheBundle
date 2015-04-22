@@ -3,16 +3,19 @@ CACHE MANIFEST
 #chrome://appcache-internals/ to clear
 
 CACHE:
+
 {% for path in paths %}
-    {% if cdn %}
-        {% if http %}http://{{- cdn -}}/{{ path }}{% endif %}
-        {% if https %}https://{{- cdn -}}/{{ path }}{% endif %}
-    {% else %}
-        /{{ path }}
-    {% endif %}
+{% if cdn %}
+{% if http %}http://{{ cdn }}/{{ path }}{% endif %}
+
+{% if https %}https://{{ cdn }}/{{ path }}{% endif %}
+{% endif %}
+
+/{{ path }}
+
 {% endfor %}
 {% for path in custom_paths %}
-    {{ path }}
+{{ path }}
 {% endfor %}
 
 NETWORK:
