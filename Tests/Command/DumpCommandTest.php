@@ -117,9 +117,6 @@ class DumpCommandTest extends KernelTestCase
             'https'        => true,
             'custom_paths' => array(
                 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'
             )
         );
         $html5Cache->setValue($this->command, $initData);
@@ -130,15 +127,10 @@ class DumpCommandTest extends KernelTestCase
         $this->assertRegExp('/http:\/\/cdn.site.com\/test.png/', $data);
         $this->assertRegExp('/https:\/\/cdn.site.com\/test.png/', $data);
         $this->assertRegExp('/\/test.png/', $data);
-
         $this->assertRegExp('/http:\/\/cdn.site.com\/test.gif/', $data);
         $this->assertRegExp('/https:\/\/cdn.site.com\/test.gif/', $data);
         $this->assertRegExp('/\/test.gif/', $data);
-
         $this->assertRegExp('/https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/1.11.2\/jquery.min.js/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap.min.css/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap-theme.min.css/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/js\/bootstrap.min.js/', $data);
 
         $initData = array(
             'paths' => array(
