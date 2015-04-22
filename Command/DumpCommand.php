@@ -46,7 +46,7 @@ class DumpCommand extends ContainerAwareCommand
      */
     protected $webDirectory;
     /**
-     * @var array
+     * @var mixed
      */
     protected $html5Cache;
     /**
