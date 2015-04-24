@@ -78,7 +78,7 @@ class DumpCommandTest extends KernelTestCase
     }
 
     /**
-     * 
+     *
      */
     protected function setMockFields()
     {

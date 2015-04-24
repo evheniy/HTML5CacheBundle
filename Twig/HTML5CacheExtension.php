@@ -37,7 +37,7 @@ class HTML5CacheExtension extends \Twig_Extension
      */
     public function getCacheManifest()
     {
-        return $this->environment->isDebug() ? '' : '/cache.manifest';
+        return $this->environment->isDebug() ? '' : ' manifest="/cache.manifest"';
     }
 
     /**

@@ -3,6 +3,9 @@ HTML5CacheBundle
 
 This bundle provides HTML5 Application Cache for Symfony2
 
+[![knpbundles.com](http://knpbundles.com/evheniy/HTML5CacheBundle/badge)](http://knpbundles.com/evheniy/HTML5CacheBundle)
+
+[![Latest Stable Version](https://poser.pugx.org/evheniy/html5-cache-bundle/v/stable)](https://packagist.org/packages/evheniy/html5-cache-bundle) [![Total Downloads](https://poser.pugx.org/evheniy/html5-cache-bundle/downloads)](https://packagist.org/packages/evheniy/html5-cache-bundle) [![Latest Unstable Version](https://poser.pugx.org/evheniy/html5-cache-bundle/v/unstable)](https://packagist.org/packages/evheniy/html5-cache-bundle) [![License](https://poser.pugx.org/evheniy/html5-cache-bundle/license)](https://packagist.org/packages/evheniy/html5-cache-bundle)
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/build-status/master)
 
@@ -46,6 +49,11 @@ config.yml:
             - https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js
             - ...
 
+layout.html.twig:
+
+    <html{{- cache_manifest()|raw -}}>
+    ...
+
 Documentation
 -------------
 
@@ -76,6 +84,26 @@ You can set custom urls:
             - ...
 
 Default value is empty
+
+Partial using
+-------------
+
+layout.html.twig:
+   
+    <html{%- block cache_manifest -%}{%- endblock -%}>
+    ...
+        
+index.html.twig:
+    
+    {%- extends "layout.html.twig" -%}
+    {%- block cache_manifest -%}{{- cache_manifest()|raw -}}{%- endblock -%}
+    ...
+        
+page_without_cache.html.twig:
+    
+    {%- extends "layout.html.twig" -%}
+    {%- block cache_manifest -%}{%- endblock -%}
+    ...
 
 
 JqueryBundle
