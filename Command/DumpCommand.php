@@ -138,7 +138,7 @@ EOF
      */
     protected function render()
     {
-        return $this->getContainer()->get('twig')->render('@HTML5CacheBundle/cache.html.twig', $this->html5Cache);
+        return $this->getContainer()->get('twig')->render('HTML5CacheBundle::cache.html.twig', $this->html5Cache);
     }
 
     /**

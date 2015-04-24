@@ -93,7 +93,7 @@ layout.html.twig:
     <html{%- block cache_manifest -%}{%- endblock -%}>
     ...
         
-index.html.twig:
+page_with_cache.html.twig:
     
     {%- extends "layout.html.twig" -%}
     {%- block cache_manifest -%}{{- cache_manifest()|raw -}}{%- endblock -%}
@@ -140,7 +140,7 @@ This bundle is under the [MIT][3] license.
 
 [1]:  http://makedev.org/articles/symfony/bundles/jquery_bundle.html
 [2]:  http://makedev.org/
-[3]:  https://github.com/evheniy/JqueryBundle/blob/master/Resources/meta/LICENSE
+[3]:  https://github.com/evheniy/HTML5CacheBundle/blob/master/Resources/meta/LICENSE
 [4]:  http://www.w3schools.com/html/html5_app_cache.asp
 [5]:  https://github.com/evheniy/JqueryBundle
 [6]:  https://github.com/evheniy/TwitterBootstrapBundle

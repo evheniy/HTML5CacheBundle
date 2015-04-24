@@ -64,9 +64,7 @@ class DumpCommandTest extends KernelTestCase
         $this->command = new DumpCommand();
         $this->reflectionClass = new \ReflectionClass('\Evheniy\HTML5CacheBundle\Command\DumpCommand');
         $this->container = new Container();
-        $loader = new \Twig_Loader_Filesystem();
-        $loader->addPath(dirname(__FILE__) . '/../../Resources/views', 'HTML5CacheBundle');
-        $this->container->set('twig', new TwigEngine(new \Twig_Environment($loader), new TemplateNameParser()));
+        $this->container->set('twig', new TwigEngine(new \Twig_Environment(new \Twig_Loader_Array(array('HTML5CacheBundle::cache.html.twig' => file_get_contents(dirname(__FILE__) . '/../../Resources/views/cache.html.twig')))), new TemplateNameParser()));
 
         $this->webPath = dirname(__FILE__) . '/web';
         $this->filesystem = new Filesystem();

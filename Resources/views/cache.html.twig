@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#{{ "now"|date("Ymdhis") }}
+#{{ "now"|date("YmdHis") }}
 #chrome://appcache-internals/ to clear
 
 CACHE:
@@ -10,9 +10,7 @@ CACHE:
 
 {% if https %}https://{{ cdn }}/{{ path }}{% endif %}
 {% endif %}
-
 /{{ path }}
-
 {% endfor %}
 {% for path in custom_paths %}
 {{ path }}
