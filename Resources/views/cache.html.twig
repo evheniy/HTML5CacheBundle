@@ -9,8 +9,10 @@ CACHE:
 {% if http %}http://{{ cdn }}/{{ path }}{% endif %}
 
 {% if https %}https://{{ cdn }}/{{ path }}{% endif %}
-{% endif %}
+{% else %}
 /{{ path }}
+{% endif %}
+
 {% endfor %}
 {% for path in custom_paths %}
 {{ path }}
