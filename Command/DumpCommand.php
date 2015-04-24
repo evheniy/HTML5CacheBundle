@@ -83,12 +83,13 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $input;
+        $output->writeln('<comment>Start dumping cache.manifest...</comment>>');
         $this->webDirectory = $this->getContainer()->get('kernel')->getRootdir() . '/../web';
         $this->filesystem = new Filesystem();
         $this->finder = new Finder();
         $this->setHtml5Cache($this->getPaths());
         $this->dump();
-        $output->writeln('<info>Done<info>');
+        $output->writeln('<info>Done</info>');
     }
 
     /**
