@@ -62,13 +62,11 @@ class DumpCommandTest extends KernelTestCase
     protected function setUp()
     {
         $this->command = new DumpCommand();
-        $this->reflectionClass = new \ReflectionClass(
-            '\Evheniy\HTML5CacheBundle\Command\DumpCommand'
-        );
+        $this->reflectionClass = new \ReflectionClass('\Evheniy\HTML5CacheBundle\Command\DumpCommand');
         $this->container = new Container();
-
-        $this->html5Cache = $this->reflectionClass->getProperty('html5Cache');
-        $this->html5Cache->setAccessible(true);
+        $loader = new \Twig_Loader_Filesystem();
+        $loader->addPath(dirname(__FILE__) . '/../../Resources/views', 'HTML5CacheBundle');
+        $this->container->set('twig', new TwigEngine(new \Twig_Environment($loader), new TemplateNameParser()));
 
         $this->webPath = dirname(__FILE__) . '/web';
         $this->filesystem = new Filesystem();
@@ -76,16 +74,23 @@ class DumpCommandTest extends KernelTestCase
         $this->filesystem->touch($this->webPath . '/test.png');
         $this->filesystem->touch($this->webPath . '/test.gif');
 
+        $this->setMockFields();
+    }
+
+    /**
+     * 
+     */
+    protected function setMockFields()
+    {
+        $this->html5Cache = $this->reflectionClass->getProperty('html5Cache');
+        $this->html5Cache->setAccessible(true);
+
         $this->webDirectory = $this->reflectionClass->getProperty('webDirectory');
         $this->webDirectory->setAccessible(true);
         $this->webDirectory->setValue($this->command, $this->webPath);
 
         $this->finder = $this->reflectionClass->getProperty('finder');
         $this->finder->setAccessible(true);
-
-        $loader = new \Twig_Loader_Filesystem();
-        $loader->addPath(dirname(__FILE__) . '/../../Resources/views', 'HTML5CacheBundle');
-        $this->container->set('twig', new TwigEngine(new \Twig_Environment($loader), new TemplateNameParser()));
 
         $this->filesystemField = $this->reflectionClass->getProperty('filesystem');
         $this->filesystemField->setAccessible(true);
