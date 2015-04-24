@@ -31,6 +31,30 @@ class DumpCommandTest extends KernelTestCase
      * @var Container
      */
     protected $container;
+    /**
+     * @var \ReflectionProperty
+     */
+    protected $html5Cache;
+    /**
+     * @var \ReflectionProperty
+     */
+    protected $webDirectory;
+    /**
+     * @var string
+     */
+    protected $webPath;
+    /**
+     * @var Filesystem
+     */
+    protected $filesystem;
+    /**
+     * @var \ReflectionProperty
+     */
+    protected $filesystemField;
+    /**
+     * @var \ReflectionProperty
+     */
+    protected $finder;
 
     /**
      *
@@ -41,8 +65,38 @@ class DumpCommandTest extends KernelTestCase
         $this->reflectionClass = new \ReflectionClass(
             '\Evheniy\HTML5CacheBundle\Command\DumpCommand'
         );
-
         $this->container = new Container();
+
+        $this->html5Cache = $this->reflectionClass->getProperty('html5Cache');
+        $this->html5Cache->setAccessible(true);
+
+        $this->webPath = dirname(__FILE__) . '/web';
+        $this->filesystem = new Filesystem();
+        $this->filesystem->mkdir($this->webPath);
+        $this->filesystem->touch($this->webPath . '/test.png');
+        $this->filesystem->touch($this->webPath . '/test.gif');
+
+        $this->webDirectory = $this->reflectionClass->getProperty('webDirectory');
+        $this->webDirectory->setAccessible(true);
+        $this->webDirectory->setValue($this->command, $this->webPath);
+
+        $this->finder = $this->reflectionClass->getProperty('finder');
+        $this->finder->setAccessible(true);
+
+        $loader = new \Twig_Loader_Filesystem();
+        $loader->addPath(dirname(__FILE__) . '/../../Resources/views', 'HTML5CacheBundle');
+        $this->container->set('twig', new TwigEngine(new \Twig_Environment($loader), new TemplateNameParser()));
+
+        $this->filesystemField = $this->reflectionClass->getProperty('filesystem');
+        $this->filesystemField->setAccessible(true);
+    }
+
+    /**
+     *
+     */
+    protected function tearDown()
+    {
+        $this->filesystem->remove($this->webPath);
     }
 
     /**
@@ -78,9 +132,7 @@ class DumpCommandTest extends KernelTestCase
      */
     public function testGetTwitterBootstrapUrls()
     {
-        $this->container->setParameter(
-            'twitter_bootstrap', array('version' => '3.3.4')
-        );
+        $this->container->setParameter('twitter_bootstrap', array('version' => '3.3.4'));
         $this->command->setContainer($this->container);
         $method = $this->reflectionClass->getMethod('getTwitterBootstrapUrls');
         $method->setAccessible(true);
@@ -98,12 +150,7 @@ class DumpCommandTest extends KernelTestCase
      */
     public function testRender()
     {
-        $loader = new \Twig_Loader_Filesystem();
-        $loader->addPath(dirname(__FILE__) . '/../../Resources/views', 'HTML5CacheBundle');
-        $this->container->set('twig', new TwigEngine(new \Twig_Environment($loader), new TemplateNameParser()));
         $this->command->setContainer($this->container);
-        $html5Cache = $this->reflectionClass->getProperty('html5Cache');
-        $html5Cache->setAccessible(true);
         $method = $this->reflectionClass->getMethod('render');
         $method->setAccessible(true);
 
@@ -119,7 +166,7 @@ class DumpCommandTest extends KernelTestCase
                 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js',
             )
         );
-        $html5Cache->setValue($this->command, $initData);
+        $this->html5Cache->setValue($this->command, $initData);
         $data = $method->invoke($this->command);
         $this->assertRegExp('/CACHE MANIFEST/', $data);
         $this->assertRegExp('/CACHE:/', $data);
@@ -141,7 +188,7 @@ class DumpCommandTest extends KernelTestCase
             'http'  => false,
             'https' => true
         );
-        $html5Cache->setValue($this->command, $initData);
+        $this->html5Cache->setValue($this->command, $initData);
         $data = $method->invoke($this->command);
         $this->assertRegExp('/https:\/\/cdn.site.com\/test.png/', $data);
         $this->assertRegExp('/\/test.png/', $data);
@@ -157,7 +204,7 @@ class DumpCommandTest extends KernelTestCase
             'http'  => true,
             'https' => false
         );
-        $html5Cache->setValue($this->command, $initData);
+        $this->html5Cache->setValue($this->command, $initData);
         $data = $method->invoke($this->command);
         $this->assertRegExp('/http:\/\/cdn.site.com\/test.png/', $data);
         $this->assertRegExp('/\/test.png/', $data);
@@ -170,7 +217,7 @@ class DumpCommandTest extends KernelTestCase
                 'test.gif'
             )
         );
-        $html5Cache->setValue($this->command, $initData);
+        $this->html5Cache->setValue($this->command, $initData);
         $data = $method->invoke($this->command);
         $this->assertRegExp('/\/test.png/', $data);
         $this->assertRegExp('/\/test.gif/', $data);
@@ -187,9 +234,6 @@ class DumpCommandTest extends KernelTestCase
             'https'        => true,
             'custom_paths' => array(
                 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'
             )
         );
         $this->container->setParameter('html5_cache', $initData);
@@ -197,9 +241,7 @@ class DumpCommandTest extends KernelTestCase
         $method = $this->reflectionClass->getMethod('setHtml5Cache');
         $method->setAccessible(true);
         $method->invoke($this->command, array('test.png', 'test.gif'));
-        $html5Cache = $this->reflectionClass->getProperty('html5Cache');
-        $html5Cache->setAccessible(true);
-        $data = $html5Cache->getValue($this->command);
+        $data = $this->html5Cache->getValue($this->command);
         $initData['paths'] = array('test.png', 'test.gif');
         $this->assertEquals($data, $initData);
     }
@@ -209,31 +251,15 @@ class DumpCommandTest extends KernelTestCase
      */
     public function testGetPaths()
     {
-        $webPath = dirname(__FILE__) . '/web';
-        $filesystem = new Filesystem();
-        $filesystem->mkdir($webPath);
-        $filesystem->touch($webPath . '/test.png');
-        $filesystem->touch($webPath . '/test.gif');
-
-        $webDirectory = $this->reflectionClass->getProperty('webDirectory');
-        $webDirectory->setAccessible(true);
-        $webDirectory->setValue($this->command, $webPath);
-
-        $finder = $this->reflectionClass->getProperty('finder');
-        $finder->setAccessible(true);
-        $finder->setValue($this->command, new Finder());
-
+        $this->finder->setValue($this->command, new Finder());
         $method = $this->reflectionClass->getMethod('getPaths');
         $method->setAccessible(true);
         $paths = $method->invoke($this->command);
-
         $this->assertNotEmpty($paths);
         $this->assertTrue(is_array($paths));
         $this->assertCount(2, $paths);
         $this->assertTrue(in_array('test.png', $paths));
         $this->assertTrue(in_array('test.gif', $paths));
-
-        $filesystem->remove($webPath);
     }
 
     /**
@@ -241,25 +267,8 @@ class DumpCommandTest extends KernelTestCase
      */
     public function testDump()
     {
-        $webPath = dirname(__FILE__) . '/web';
-        $file = new Filesystem();
-        $file->mkdir($webPath);
-
-        $loader = new \Twig_Loader_Filesystem();
-        $loader->addPath(dirname(__FILE__) . '/../../Resources/views', 'HTML5CacheBundle');
-        $this->container->set('twig', new TwigEngine(new \Twig_Environment($loader), new TemplateNameParser()));
+        $this->filesystemField->setValue($this->command, new Filesystem());
         $this->command->setContainer($this->container);
-
-        $webDirectory = $this->reflectionClass->getProperty('webDirectory');
-        $webDirectory->setAccessible(true);
-        $webDirectory->setValue($this->command, $webPath);
-
-        $filesystem = $this->reflectionClass->getProperty('filesystem');
-        $filesystem->setAccessible(true);
-        $filesystem->setValue($this->command, new Filesystem());
-
-        $html5Cache = $this->reflectionClass->getProperty('html5Cache');
-        $html5Cache->setAccessible(true);
         $initData = array(
             'paths'        => array(
                 'test.png',
@@ -270,20 +279,13 @@ class DumpCommandTest extends KernelTestCase
             'https'        => true,
             'custom_paths' => array(
                 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'
             )
         );
-        $html5Cache->setValue($this->command, $initData);
-
+        $this->html5Cache->setValue($this->command, $initData);
         $method = $this->reflectionClass->getMethod('dump');
         $method->setAccessible(true);
         $method->invoke($this->command);
-
-        $this->parseFile($file, $webPath);
-
-        $file->remove($webPath);
+        $this->parseFile();
     }
 
     /**
@@ -291,67 +293,44 @@ class DumpCommandTest extends KernelTestCase
      */
     public function testExecute()
     {
-        $webPath = dirname(__FILE__) . '/web';
-        $filesystem = new Filesystem();
-        $filesystem->mkdir($webPath);
-        $filesystem->touch($webPath . '/test.png');
-        $filesystem->touch($webPath . '/test.gif');
-
-        $loader = new \Twig_Loader_Filesystem();
-        $loader->addPath(dirname(__FILE__) . '/../../Resources/views', 'HTML5CacheBundle');
-        $this->container->set('twig', new TwigEngine(new \Twig_Environment($loader), new TemplateNameParser()));
         $initData = array(
             'cdn'          => 'cdn.site.com',
             'http'         => true,
             'https'        => true,
             'custom_paths' => array(
                 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css',
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'
             )
         );
         $this->container->setParameter('html5_cache', $initData);
         $kernel = $this->getMock('Symfony\Component\HttpKernel\KernelInterface');
-        $kernel->method('getRootdir')->willReturn($webPath);
+        $kernel->method('getRootdir')->willReturn($this->webPath);
         $this->container->set('kernel', $kernel);
         $this->command->setContainer($this->container);
-
         $method = $this->reflectionClass->getMethod('execute');
         $method->setAccessible(true);
         $output = new StreamOutput(fopen('php://memory', 'w', false));
         $method->invoke($this->command, new ArrayInput(array()), $output);
         rewind($output->getStream());
         $this->assertRegExp('/Done/', stream_get_contents($output->getStream()));
-
-        $this->parseFile($filesystem, $webPath);
-
-        $filesystem->remove($webPath);
+        $this->parseFile();
     }
 
     /**
-     * @param Filesystem $file
-     * @param string     $webPath
+     *
      */
-    private function parseFile(Filesystem $file, $webPath)
+    private function parseFile()
     {
-        $this->assertTrue($file->exists(array($webPath . '/cache.manifest')));
-        $data = file_get_contents($webPath . '/cache.manifest');
-
+        $this->assertTrue($this->filesystem->exists(array($this->webPath . '/cache.manifest')));
+        $data = file_get_contents($this->webPath . '/cache.manifest');
         $this->assertRegExp('/CACHE MANIFEST/', $data);
         $this->assertRegExp('/CACHE:/', $data);
         $this->assertRegExp('/NETWORK:/', $data);
         $this->assertRegExp('/http:\/\/cdn.site.com\/test.png/', $data);
         $this->assertRegExp('/https:\/\/cdn.site.com\/test.png/', $data);
         $this->assertRegExp('/\/test.png/', $data);
-
         $this->assertRegExp('/http:\/\/cdn.site.com\/test.gif/', $data);
         $this->assertRegExp('/https:\/\/cdn.site.com\/test.gif/', $data);
         $this->assertRegExp('/\/test.gif/', $data);
-
         $this->assertRegExp('/https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/1.11.2\/jquery.min.js/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap.min.css/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/css\/bootstrap-theme.min.css/', $data);
-        $this->assertRegExp('/https:\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.3.4\/js\/bootstrap.min.js/', $data);
     }
 }
