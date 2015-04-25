@@ -19,28 +19,7 @@ class DumpCommand extends ContainerAwareCommand
     /**
      * @var array
      */
-    protected $_types
-        = array(
-            'jpg',
-            'jpeg',
-            'gif',
-            'png',
-            'bmp',
-            'ico',
-            'pdf',
-            'flv',
-            'swf',
-            'html',
-            'htm',
-            'txt',
-            'css',
-            'js',
-            'eot',
-            'woff',
-            'ttf',
-            'svg',
-            'ogg'
-        );
+    protected $_types  = array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'ico', 'flv', 'swf', 'txt', 'css', 'js', 'eot', 'woff', 'woff2','ttf', 'svg');
     /**
      * @var string
      */
@@ -66,12 +45,7 @@ class DumpCommand extends ContainerAwareCommand
         $this
             ->setName('manifest:dump')
             ->setDescription('Dumps Cache Manifest file for using HTML5 Application Cache')
-            ->setHelp(<<<EOF
-The <info>%command.name%</info> command dumps Cache Manifest file for using HTML5 Application Cache.
-
-  <info>php %command.full_name%</info>
-EOF
-            );
+            ->setHelp("\nThe <info>%command.name%</info> command dumpsCache Manifest file for using HTML5 Application Cache.\n\n<info>%command.full_name%</info>\n");
     }
 
     /**

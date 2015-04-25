@@ -138,7 +138,7 @@ This bundle is under the [MIT][3] license.
 
 [HTML5 Application Cache][4]
 
-[1]:  http://makedev.org/articles/symfony/bundles/jquery_bundle.html
+[1]:  http://makedev.org/articles/symfony/bundles/html5_cache_bundle.html
 [2]:  http://makedev.org/
 [3]:  https://github.com/evheniy/HTML5CacheBundle/blob/master/Resources/meta/LICENSE
 [4]:  http://www.w3schools.com/html/html5_app_cache.asp

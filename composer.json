@@ -1,8 +1,8 @@
 {
     "name": "evheniy/html5-cache-bundle",
-    "version": "0.1",
+    "version": "1.0",
     "description": "The HTML5CacheBundle adds the ability to add HTML5 Application Cache to your application.",
-    "keywords": ["HTML5", "Cache", "Symfony", "HTML5 Application Cache"],
+    "keywords": ["HTML5", "Cache", "Symfony", "HTML5 Application Cache", "Cache Manifest"],
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
