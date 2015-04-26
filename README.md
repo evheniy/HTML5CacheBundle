@@ -54,6 +54,10 @@ layout.html.twig:
     <html{{- cache_manifest()|raw -}}>
     ...
 
+The last step
+
+    app/console manifest:dump
+
 Documentation
 -------------
 
