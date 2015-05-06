@@ -2,7 +2,6 @@
 namespace Evheniy\HTML5CacheBundle\Tests\Command;
 
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Output\StreamOutput;
 use Evheniy\HTML5CacheBundle\Command\DumpCommand;
 use Symfony\Component\DependencyInjection\Container;
@@ -16,7 +15,7 @@ use Symfony\Component\Templating\TemplateNameParser;
  *
  * @package Evheniy\HTML5CacheBundle\Tests\Command
  */
-class DumpCommandTest extends KernelTestCase
+class DumpCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var DumpCommand
