@@ -68,28 +68,11 @@ class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->container->hasParameter('html5_cache'));
         $html5Cache = $this->container->getParameter('html5_cache');
         $this->assertNotEmpty($html5Cache['cdn']);
-        $this->assertEquals($html5Cache['cdn'], 'cdn.site.com');
+        $this->assertEquals($html5Cache['cdn'], '//cdn.site.com');
         $this->assertEmpty($html5Cache['https']);
         $this->assertFalse($html5Cache['https']);
         $this->assertEmpty($html5Cache['http']);
         $this->assertFalse($html5Cache['http']);
-    }
-
-    /**
-     * Test filterCdn method
-     */
-    public function testFilterCdn()
-    {
-        $reflectionClass = new \ReflectionClass('\Evheniy\HTML5CacheBundle\DependencyInjection\HTML5CacheExtension');
-        $method = $reflectionClass->getMethod('filterCdn');
-        $method->setAccessible(true);
-        $this->assertEquals($method->invoke($this->extension, ''), '');
-        $this->assertEquals($method->invoke($this->extension, 'cdn.site.com'), 'cdn.site.com');
-        $this->assertEquals($method->invoke($this->extension, '//cdn.site.com'), 'cdn.site.com');
-        $this->assertEquals($method->invoke($this->extension, 'http://cdn.site.com'), 'cdn.site.com');
-        $this->assertEquals($method->invoke($this->extension, 'http://cdn.site.com/'), 'cdn.site.com');
-        $this->assertEquals($method->invoke($this->extension, 'https://cdn.site.com'), 'cdn.site.com');
-        $this->assertEquals($method->invoke($this->extension, 'https://cdn.site.com/'), 'cdn.site.com');
     }
 
     /**

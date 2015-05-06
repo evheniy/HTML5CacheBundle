@@ -10,7 +10,6 @@ use Symfony\Bridge\Twig\TwigEngine;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Templating\TemplateNameParser;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
  * Class DumpCommandTest
@@ -162,7 +161,7 @@ class DumpCommandTest extends KernelTestCase
                 'test.png',
                 'test.gif'
             ),
-            'cdn'          => 'cdn.site.com',
+            'cdn'          => '//cdn.site.com',
             'http'         => true,
             'https'        => true,
             'custom_paths' => array(
@@ -187,7 +186,7 @@ class DumpCommandTest extends KernelTestCase
                 'test.png',
                 'test.gif'
             ),
-            'cdn'   => 'cdn.site.com',
+            'cdn'   => '//cdn.site.com',
             'http'  => false,
             'https' => true
         );
@@ -203,7 +202,7 @@ class DumpCommandTest extends KernelTestCase
                 'test.png',
                 'test.gif'
             ),
-            'cdn'   => 'cdn.site.com',
+            'cdn'   => '//cdn.site.com',
             'http'  => true,
             'https' => false
         );
@@ -232,7 +231,7 @@ class DumpCommandTest extends KernelTestCase
     public function testSetHtml5Cache()
     {
         $initData = array(
-            'cdn'          => 'cdn.site.com',
+            'cdn'          => '//cdn.site.com',
             'http'         => true,
             'https'        => true,
             'custom_paths' => array(
@@ -277,7 +276,7 @@ class DumpCommandTest extends KernelTestCase
                 'test.png',
                 'test.gif'
             ),
-            'cdn'          => 'cdn.site.com',
+            'cdn'          => '//cdn.site.com',
             'http'         => true,
             'https'        => true,
             'custom_paths' => array(
@@ -297,7 +296,7 @@ class DumpCommandTest extends KernelTestCase
     public function testExecute()
     {
         $initData = array(
-            'cdn'          => 'cdn.site.com',
+            'cdn'          => '//cdn.site.com',
             'http'         => true,
             'https'        => true,
             'custom_paths' => array(
