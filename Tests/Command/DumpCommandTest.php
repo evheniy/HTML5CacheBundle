@@ -147,6 +147,23 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     */
+    public function testGetMaterializeUrls()
+    {
+        $this->container->setParameter('materialize', array('version' => '0.97.0'));
+        $this->command->setContainer($this->container);
+        $method = $this->reflectionClass->getMethod('getMaterializeUrls');
+        $method->setAccessible(true);
+        $urls = $method->invoke($this->command);
+        $this->assertTrue(is_array($urls));
+        $this->assertNotEmpty($urls);
+        $this->assertCount(2, $urls);
+        $this->assertEquals($urls[0], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css');
+        $this->assertEquals($urls[1], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js');
+    }
+
+    /**
      * @throws \Twig_Error_Loader
      */
     public function testRender()

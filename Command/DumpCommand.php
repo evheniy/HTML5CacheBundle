@@ -78,7 +78,8 @@ class DumpCommand extends ContainerAwareCommand
         $this->html5Cache['custom_paths'] = array_merge(
             $this->html5Cache['custom_paths'],
             $this->getJqueryUrls(),
-            $this->getTwitterBootstrapUrls()
+            $this->getTwitterBootstrapUrls(),
+            $this->getMaterializeUrls()
         );
     }
 
@@ -160,6 +161,23 @@ class DumpCommand extends ContainerAwareCommand
                 $url[] = "https://maxcdn.bootstrapcdn.com/bootstrap/{$twitterBootstrap['version']}/css/bootstrap.min.css";
                 $url[] = "https://maxcdn.bootstrapcdn.com/bootstrap/{$twitterBootstrap['version']}/css/bootstrap-theme.min.css";
                 $url[] = "https://maxcdn.bootstrapcdn.com/bootstrap/{$twitterBootstrap['version']}/js/bootstrap.min.js";
+            }
+        }
+
+        return $url;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getMaterializeUrls()
+    {
+        $url = array();
+        if ($this->getContainer()->hasParameter('materialize')) {
+            $materialize = $this->getContainer()->getParameter('materialize');
+            if (!empty($materialize) && !empty($materialize['version'])) {
+                $url[] = "https://cdnjs.cloudflare.com/ajax/libs/materialize/{$materialize['version']}/css/materialize.min.css";
+                $url[] = "https://cdnjs.cloudflare.com/ajax/libs/materialize/{$materialize['version']}/js/materialize.min.js";
             }
         }
 

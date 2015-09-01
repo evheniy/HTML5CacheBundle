@@ -131,6 +131,16 @@ If You are using [TwitterBootstrapBundle][6], those urls:
 
 will be inserted automatically
 
+MaterializeBundle
+----------------------
+
+If You are using [MaterializeBundle][7], those urls:
+
+    - https://cdnjs.cloudflare.com/ajax/libs/materialize/{MaterializeBundle.config.version}/css/materialize.min.css
+    - https://cdnjs.cloudflare.com/ajax/libs/materialize/{MaterializeBundle.config.version}/js/materialize.min.js
+
+will be inserted automatically
+
 License
 -------
 
@@ -148,3 +158,4 @@ This bundle is under the [MIT][3] license.
 [4]:  http://www.w3schools.com/html/html5_app_cache.asp
 [5]:  https://github.com/evheniy/JqueryBundle
 [6]:  https://github.com/evheniy/TwitterBootstrapBundle
+[7]:  https://github.com/evheniy/MaterializeBundle
