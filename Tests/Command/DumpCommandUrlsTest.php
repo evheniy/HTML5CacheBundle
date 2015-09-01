@@ -39,10 +39,11 @@ class DumpCommandUrlsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetJqueryUrls()
     {
-        $this->container->setParameter('jquery', array('version' => '1.11.2'));
-        $urls = $this->getUrls('getJqueryUrls');
-        $this->assertCount(1, $urls);
-        $this->assertEquals($urls[0], 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js');
+        $version = '1.11.3';
+        $this->container->setParameter('jquery', array('version' => $version));
+        $jqueryUrls = $this->getUrls('getJqueryUrls');
+        $this->assertCount(1, $jqueryUrls);
+        $this->assertEquals($jqueryUrls[0], 'https://ajax.googleapis.com/ajax/libs/jquery/' . $version . '/jquery.min.js');
     }
 
     /**
@@ -50,12 +51,13 @@ class DumpCommandUrlsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTwitterBootstrapUrls()
     {
-        $this->container->setParameter('twitter_bootstrap', array('version' => '3.3.4'));
-        $urls = $this->getUrls('getTwitterBootstrapUrls');
-        $this->assertCount(3, $urls);
-        $this->assertEquals($urls[0], 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css');
-        $this->assertEquals($urls[1], 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css');
-        $this->assertEquals($urls[2], 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js');
+        $version = '3.3.4';
+        $this->container->setParameter('twitter_bootstrap', array('version' => $version));
+        $twitterBootstrapUrls = $this->getUrls('getTwitterBootstrapUrls');
+        $this->assertCount(3, $twitterBootstrapUrls);
+        $this->assertEquals($twitterBootstrapUrls[0], 'https://maxcdn.bootstrapcdn.com/bootstrap/' . $version . '/css/bootstrap.min.css');
+        $this->assertEquals($twitterBootstrapUrls[1], 'https://maxcdn.bootstrapcdn.com/bootstrap/' . $version . '/css/bootstrap-theme.min.css');
+        $this->assertEquals($twitterBootstrapUrls[2], 'https://maxcdn.bootstrapcdn.com/bootstrap/' . $version . '/js/bootstrap.min.js');
     }
 
     /**
@@ -63,11 +65,12 @@ class DumpCommandUrlsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMaterializeUrls()
     {
-        $this->container->setParameter('materialize', array('version' => '0.97.0'));
-        $urls = $this->getUrls('getMaterializeUrls');
-        $this->assertCount(2, $urls);
-        $this->assertEquals($urls[0], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css');
-        $this->assertEquals($urls[1], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js');
+        $version = '0.97.0';
+        $this->container->setParameter('materialize', array('version' => $version));
+        $materializeUrls = $this->getUrls('getMaterializeUrls');
+        $this->assertCount(2, $materializeUrls);
+        $this->assertEquals($materializeUrls[0], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/' . $version . '/css/materialize.min.css');
+        $this->assertEquals($materializeUrls[1], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/' . $version . '/js/materialize.min.js');
     }
 
     /**
