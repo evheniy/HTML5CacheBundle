@@ -113,57 +113,6 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *
-     */
-    public function testGetJqueryUrls()
-    {
-        $this->container->setParameter('jquery', array('version' => '1.11.2'));
-        $this->command->setContainer($this->container);
-        $method = $this->reflectionClass->getMethod('getJqueryUrls');
-        $method->setAccessible(true);
-        $urls = $method->invoke($this->command);
-        $this->assertTrue(is_array($urls));
-        $this->assertNotEmpty($urls);
-        $this->assertCount(1, $urls);
-        $this->assertEquals($urls[0], 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js');
-    }
-
-    /**
-     *
-     */
-    public function testGetTwitterBootstrapUrls()
-    {
-        $this->container->setParameter('twitter_bootstrap', array('version' => '3.3.4'));
-        $this->command->setContainer($this->container);
-        $method = $this->reflectionClass->getMethod('getTwitterBootstrapUrls');
-        $method->setAccessible(true);
-        $urls = $method->invoke($this->command);
-        $this->assertTrue(is_array($urls));
-        $this->assertNotEmpty($urls);
-        $this->assertCount(3, $urls);
-        $this->assertEquals($urls[0], 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css');
-        $this->assertEquals($urls[1], 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css');
-        $this->assertEquals($urls[2], 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js');
-    }
-
-    /**
-     *
-     */
-    public function testGetMaterializeUrls()
-    {
-        $this->container->setParameter('materialize', array('version' => '0.97.0'));
-        $this->command->setContainer($this->container);
-        $method = $this->reflectionClass->getMethod('getMaterializeUrls');
-        $method->setAccessible(true);
-        $urls = $method->invoke($this->command);
-        $this->assertTrue(is_array($urls));
-        $this->assertNotEmpty($urls);
-        $this->assertCount(2, $urls);
-        $this->assertEquals($urls[0], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css');
-        $this->assertEquals($urls[1], 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js');
-    }
-
-    /**
      * @throws \Twig_Error_Loader
      */
     public function testRender()
