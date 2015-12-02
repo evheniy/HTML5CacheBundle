@@ -7,9 +7,9 @@ This bundle provides HTML5 Application Cache for Symfony2
 
 [![Latest Stable Version](https://poser.pugx.org/evheniy/html5-cache-bundle/v/stable)](https://packagist.org/packages/evheniy/html5-cache-bundle) [![Total Downloads](https://poser.pugx.org/evheniy/html5-cache-bundle/downloads)](https://packagist.org/packages/evheniy/html5-cache-bundle) [![Latest Unstable Version](https://poser.pugx.org/evheniy/html5-cache-bundle/v/unstable)](https://packagist.org/packages/evheniy/html5-cache-bundle) [![License](https://poser.pugx.org/evheniy/html5-cache-bundle/license)](https://packagist.org/packages/evheniy/html5-cache-bundle)
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/build-status/master)
-
 [![Build Status](https://travis-ci.org/evheniy/HTML5CacheBundle.svg)](https://travis-ci.org/evheniy/HTML5CacheBundle)
+[![Coverage Status](https://coveralls.io/repos/evheniy/HTML5CacheBundle/badge.svg?branch=master&service=github)](https://coveralls.io/github/evheniy/HTML5CacheBundle?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/evheniy/HTML5CacheBundle/build-status/master)
 
 Installation
 ------------
