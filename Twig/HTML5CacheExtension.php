@@ -27,7 +27,7 @@ class HTML5CacheExtension extends \Twig_Extension
     /**
      * @param \Twig_Environment $environment
      */
-    public function initRuntime(\Twig_Environment $environment)
+    public function needs_environment(\Twig_Environment $environment)
     {
         $this->environment = $environment;
     }
