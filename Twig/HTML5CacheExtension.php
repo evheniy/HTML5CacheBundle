@@ -9,35 +9,25 @@ namespace Evheniy\HTML5CacheBundle\Twig;
  */
 class HTML5CacheExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
-    /**
-     * @var \Twig_Environment
-     */
-    protected $environment;
 
     /**
      * @return \Twig_SimpleFunction[]
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('cache_manifest', array($this, 'getCacheManifest'))
-        );
-    }
-
-    /**
-     * @param \Twig_Environment $environment
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->environment = $environment;
+      return [
+                 new \Twig_SimpleFunction('cache_manifest', [$this, 'getCacheManifest'], [
+                     'needs_environment' => true
+                 ])
+             ];
     }
 
     /**
      * @return string
      */
-    public function getCacheManifest()
+    public function getCacheManifest(\Twig_Environment $environment)
     {
-        return $this->environment->isDebug() ? '' : ' manifest="/cache.manifest"';
+        return $environment->isDebug() ? '' : ' manifest="/cache.manifest"';
     }
 
     /**
