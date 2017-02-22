@@ -269,7 +269,7 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
             )
         );
         $this->container->setParameter('html5_cache', $initData);
-        $kernel = $this->getMock('Symfony\Component\HttpKernel\KernelInterface');
+        $kernel = $this->createMock('Symfony\Component\HttpKernel\KernelInterface');
         $kernel->method('getRootdir')->willReturn($this->webPath);
         $this->container->set('kernel', $kernel);
         $this->command->setContainer($this->container);

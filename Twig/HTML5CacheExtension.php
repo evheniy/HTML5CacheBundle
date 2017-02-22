@@ -7,7 +7,7 @@ namespace Evheniy\HTML5CacheBundle\Twig;
  *
  * @package Evheniy\HTML5CacheBundle\Twig
  */
-class HTML5CacheExtension extends \Twig_Extension
+class HTML5CacheExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
     /**
      * @var \Twig_Environment
