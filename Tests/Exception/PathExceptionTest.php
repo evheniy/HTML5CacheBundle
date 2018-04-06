@@ -3,13 +3,14 @@
 namespace Evheniy\HTML5CacheBundle\Test\Exception;
 
 use Evheniy\HTML5CacheBundle\Exception\PathException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PathExceptionTest
  *
  * @package Evheniy\HTML5CacheBundle\Test\Exception
  */
-class PathExceptionTest extends \PHPUnit_Framework_TestCase
+class PathExceptionTest extends TestCase
 {
     /**
      * @throws PathException
@@ -17,7 +18,7 @@ class PathExceptionTest extends \PHPUnit_Framework_TestCase
     public function test()
     {
         $this->assertInstanceOf('\Exception', new PathException());
-        $this->setExpectedException('\Evheniy\HTML5CacheBundle\Exception\PathException');
+        $this->expectException(\Evheniy\HTML5CacheBundle\Exception\PathException::class);
         throw new PathException('test');
     }
 }

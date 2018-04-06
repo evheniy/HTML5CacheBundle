@@ -6,22 +6,34 @@
     "license": "MIT",
     "authors": [
         {
-            "name":     "evheniy",
+            "name": "evheniy",
             "homepage": "https://github.com/evheniy"
+        },
+        {
+            "name": "Tim Bernhard",
+            "email": "tim@genieblog.ch"
         }
     ],
     "require": {
-        "php":             ">=5.5.9",
-        "symfony/symfony": ">=3.0",
-        "evheniy/jquery-bundle": ">=1.0"
+        "php": ">=7.1",
+        "symfony/config": "~3.0|~4.0",
+        "symfony/dependency-injection": "~3.0|~4.0",
+        "symfony/http-kernel": "~3.0|~4.0",
+        "symfony/finder": "~3.0|~4.0",
+        "symfony/console": "~3.0|~4.0",
+        "symfony/framework-bundle": "~3.0|~4.0",
+        "twig/twig": "^2.4",
+        "symfony/twig-bridge": "~3.0|~4.0",
+        "symfony/templating": "~3.0|~4.0"
     },
     "require-dev": {
-        "satooshi/php-coveralls": "dev-master"
+        "satooshi/php-coveralls": "~2.0",
+        "phpunit/phpunit": "^7.1"
     },
     "autoload": {
         "psr-0": {
             "Evheniy\\HTML5CacheBundle": ""
         }
     },
-    "target-dir" : "Evheniy/HTML5CacheBundle"
+    "target-dir": "Evheniy/HTML5CacheBundle"
 }

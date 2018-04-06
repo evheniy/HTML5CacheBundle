@@ -3,13 +3,14 @@ namespace Evheniy\HTML5CacheBundle\Tests\Command;
 
 use Evheniy\HTML5CacheBundle\Command\DumpCommand;
 use Symfony\Component\DependencyInjection\Container;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DumpCommandTest
  *
  * @package Evheniy\HTML5CacheBundle\Tests\Command
  */
-class DumpCommandUrlsTest extends \PHPUnit_Framework_TestCase
+class DumpCommandUrlsTest extends TestCase
 {
     /**
      * @var DumpCommand

@@ -3,13 +3,14 @@
 namespace Evheniy\HTML5CacheBundle\Test\Twig;
 
 use Evheniy\HTML5CacheBundle\Twig\HTML5CacheExtension;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HTML5CacheExtensionTest
  *
  * @package Evheniy\HTML5CacheBundle\Test\Twig
  */
-class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
+class HTML5CacheExtensionTest extends TestCase
 {
     /**
      * @var HTML5CacheExtension
@@ -53,7 +54,7 @@ class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $reflectionClass = new \ReflectionClass('\Evheniy\HTML5CacheBundle\Twig\HTML5CacheExtension');
 
-        $this->extension->initRuntime(new \Twig_Environment(null, array('debug' => false)));
+        $this->extension->initRuntime(new \Twig_Environment(new \Twig_Loader_Array(), array('debug' => false)));
         $environment = $reflectionClass->getProperty('environment');
         $environment->setAccessible(true);
         /** @var \Twig_Environment $environmentData */
@@ -61,7 +62,7 @@ class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Twig_Environment', $environmentData);
         $this->assertFalse($environmentData->isDebug());
 
-        $this->extension->initRuntime(new \Twig_Environment(null, array('debug' => true)));
+        $this->extension->initRuntime(new \Twig_Environment(new \Twig_Loader_Array(), array('debug' => true)));
         $environment = $reflectionClass->getProperty('environment');
         $environment->setAccessible(true);
         /** @var \Twig_Environment $environmentData */
@@ -75,11 +76,11 @@ class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCacheManifest()
     {
-        $environment = new \Twig_Environment(null, array('debug' => false));
+        $environment = new \Twig_Environment(new \Twig_Loader_Array(), array('debug' => false));
         $this->extension->initRuntime($environment);
         $this->assertEquals($this->extension->getCacheManifest(), ' manifest="/cache.manifest"');
 
-        $environment = new \Twig_Environment(null, array('debug' => true));
+        $environment = new \Twig_Environment(new \Twig_Loader_Array(), array('debug' => true));
         $this->extension->initRuntime($environment);
         $this->assertEquals($this->extension->getCacheManifest(), '');
     }
@@ -90,11 +91,13 @@ class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
     public function testTwigRender()
     {
         $twig = new \Twig_Environment(new \Twig_Loader_Array(array('test' => '{{ cache_manifest()|raw }}')), array('debug' => false));
-        $twig->addExtension(new HTML5CacheExtension());
+        $this->extension->initRuntime($twig);
+        $twig->addExtension($this->extension);
         $this->assertEquals($twig->render('test'), ' manifest="/cache.manifest"');
 
         $twig = new \Twig_Environment(new \Twig_Loader_Array(array('test' => '{{ cache_manifest()|raw }}')), array('debug' => true));
-        $twig->addExtension(new HTML5CacheExtension());
+        $this->extension->initRuntime($twig);
+        $twig->addExtension($this->extension);
         $this->assertEquals($twig->render('test'), '');
     }
 }
