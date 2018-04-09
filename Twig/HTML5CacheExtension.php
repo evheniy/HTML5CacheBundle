@@ -7,7 +7,7 @@ namespace Evheniy\HTML5CacheBundle\Twig;
  *
  * @package Evheniy\HTML5CacheBundle\Twig
  */
-class HTML5CacheExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
+class HTML5CacheExtension extends \Twig_Extension
 {
     /**
      * @var \Twig_Environment
@@ -26,10 +26,12 @@ class HTML5CacheExtension extends \Twig_Extension implements \Twig_Extension_Glo
 
     /**
      * @param \Twig_Environment $environment
+     * @return HTML5CacheExtension
      */
     public function initRuntime(\Twig_Environment $environment)
     {
         $this->environment = $environment;
+        return $this;
     }
 
     /**
@@ -49,4 +51,5 @@ class HTML5CacheExtension extends \Twig_Extension implements \Twig_Extension_Glo
     {
         return 'html5_cache_extension';
     }
+
 }

@@ -9,13 +9,14 @@ use Symfony\Bridge\Twig\TwigEngine;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Templating\TemplateNameParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DumpCommandTest
  *
  * @package Evheniy\HTML5CacheBundle\Tests\Command
  */
-class DumpCommandTest extends \PHPUnit_Framework_TestCase
+class DumpCommandTest extends TestCase
 {
     /**
      * @var DumpCommand
@@ -108,7 +109,7 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
         $method = $this->reflectionClass->getMethod('getPath');
         $method->setAccessible(true);
         $this->assertEquals($method->invoke($this->command, 'path/web/test'), 'test');
-        $this->setExpectedException('\Evheniy\HTML5CacheBundle\Exception\PathException');
+        $this->expectException('\Evheniy\HTML5CacheBundle\Exception\PathException');
         $method->invoke($this->command, 'path/test');
     }
 
@@ -269,7 +270,7 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
             )
         );
         $this->container->setParameter('html5_cache', $initData);
-        $kernel = $this->getMock('Symfony\Component\HttpKernel\KernelInterface');
+        $kernel = $this->createMock(\Symfony\Component\HttpKernel\KernelInterface::class);
         $kernel->method('getRootdir')->willReturn($this->webPath);
         $this->container->set('kernel', $kernel);
         $this->command->setContainer($this->container);

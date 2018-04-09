@@ -6,13 +6,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Evheniy\HTML5CacheBundle\DependencyInjection\HTML5CacheExtension;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HTML5CacheExtensionTest
  *
  * @package Evheniy\HTML5CacheBundle\Tests\DependencyInjection
  */
-class HTML5CacheExtensionTest extends \PHPUnit_Framework_TestCase
+class HTML5CacheExtensionTest extends TestCase
 {
     /**
      * @var HTML5CacheExtension
